@@ -8,17 +8,37 @@ import Login from './pages/Login';
 import NotFond from './pages/404';
 
 export default function Site() {
-	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path='/' element={<Header />}>
-					<Route index element={<App />} />
-					<Route path='login' element={<Login />} />
-					<Route path='*' element={<NotFond />} />
-				</Route>
-			</Routes>
-		</BrowserRouter>
-	);
+	
+	const [isAuth, setIsAuth] = React.useState(false);
+	
+	React.useEffect(() => {
+				setIsAuth(true);
+	}, []);
+
+
+	if (isAuth) {
+		return (
+			<BrowserRouter>
+				<Routes>
+					<Route path='/' element={<Header />}>
+						<Route index element={<App />} />
+						<Route path='*' element={<NotFond />} />
+					</Route>
+				</Routes>
+			</BrowserRouter>
+		);
+	} else {
+		return (
+			<BrowserRouter>
+				<Routes>
+					<Route path='/'>
+						<Route index element={<Login />} />
+						<Route path='*' element={<NotFond />} />
+					</Route>
+				</Routes>
+			</BrowserRouter>
+		);
+	};
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
