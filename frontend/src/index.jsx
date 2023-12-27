@@ -1,11 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './styles/index.css';
+import App from './pages/App';
+import Header from './components/Header';
+import Login from './pages/Login';
+import NotFond from './pages/404';
+
+export default function Site() {
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path='/' element={<Header />}>
+					<Route index element={<App />} />
+					<Route path='login' element={<Login />} />
+					<Route path='*' element={<NotFond />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
+	);
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+root.render(<Site />);
