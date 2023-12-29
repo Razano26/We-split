@@ -1,0 +1,7 @@
+Color palette :
+    - source : https://colorhunt.co/palette/f5f7f8f4ce14495e5745474b
+    - colors :
+        - #F5F7F8 (white)
+        - #F4CE14 (yellow)
+        - #495E57 (green)
+        - #45474B (black)
