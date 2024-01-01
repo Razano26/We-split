@@ -7,12 +7,12 @@ import Header from './components/Header';
 import Login from './pages/Login';
 import NotFoundPage from './pages/NotFoundPage';
 
-export default function Site() {
+function Site() {
 	
 	const [isAuth, setIsAuth] = React.useState(false);
 	
 	React.useEffect(() => {
-				setIsAuth(false);
+				setIsAuth(true);
 	}, []);
 
 
@@ -22,8 +22,8 @@ export default function Site() {
 				<Routes>
 					<Route path='/' element={<Header />}>
 						<Route index element={<App />} />
-						<Route path='*' element={<NotFoundPage />} />
 					</Route>
+					<Route path='*' element={<NotFoundPage />} />
 				</Routes>
 			</BrowserRouter>
 		);
@@ -38,7 +38,7 @@ export default function Site() {
 				</Routes>
 			</BrowserRouter>
 		);
-	};
+	}
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
