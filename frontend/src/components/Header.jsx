@@ -2,23 +2,13 @@ import { Outlet, Link } from 'react-router-dom';
 
 const Header = () => {
 	return (
-		<>
-			<nav>
-				<ul>
-					<li>
-						<Link to='/'>Home</Link>
-					</li>
-					<li>
-						<Link to='/blogs'>Blogs</Link>
-					</li>
-					<li>
-						<Link to='/contact'>Contact</Link>
-					</li>
-				</ul>
-			</nav>
-
+		<div>
+			<Link to='/'>Home</Link>
+			<Link to='space'>Space</Link>
+			<Link to='setting'>Setting</Link>
+			<Link to='about'>About</Link>
 			<Outlet />
-		</>
+		</div>
 	);
 };
 

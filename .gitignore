@@ -1,1 +1,4 @@
 .idea
+backend/database/.env
+backend/database/postgres-data
+temp.txt
