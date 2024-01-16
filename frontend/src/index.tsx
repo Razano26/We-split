@@ -15,7 +15,7 @@ function Site() {
 	const [isAuth, setIsAuth] = React.useState(false);
 	
 	React.useEffect(() => {
-				setIsAuth(true);
+				setIsAuth(false);
 	}, []);
 
 
