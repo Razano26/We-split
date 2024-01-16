@@ -5,3 +5,5 @@ Color palette :
         - #F4CE14 (yellow)
         - #495E57 (green)
         - #45474B (black)
+        - #C04851 (red)
+        - #8DA7BE (blue)

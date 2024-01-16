@@ -21,19 +21,19 @@ function Site() {
 
 	if (isAuth) {
 		return (
-			<>
-			<BrowserRouter>
-				<Routes>
-					<Route path='/' element={<Header />}>
-						<Route path='/' element={<App />}/>
-						<Route path='space' element={<Space />} />
-						<Route path='setting' element={<Setting />} />
-						<Route path='/about' element={<About />}/>
-					</Route>
-					<Route path='*' element={<NotFoundPage />} />
-				</Routes>
-			</BrowserRouter>
-</>
+			<div className={`dybo`}>
+				<BrowserRouter>
+					<Routes>
+						<Route path='/' element={<Header />}>
+							<Route path='/' element={<App />}/>
+							<Route path='space' element={<Space />} />
+							<Route path='setting' element={<Setting />} />
+							<Route path='/about' element={<About />}/>
+						</Route>
+						<Route path='*' element={<NotFoundPage />} />
+					</Routes>
+				</BrowserRouter>
+			</div>
 		);
 	} else {
 		return (
