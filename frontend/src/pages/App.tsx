@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserContextProvider, { useUserContext } from '../context/UserContext';
 import '../styles/index.css';
-import Space from './Space';
+import Spaces from './Spaces';
 import Setting from './Setting';
 import Header from './../components/Header';
 import Footer from './../components/Footer';
@@ -22,7 +22,7 @@ function App() {
 						<Header />
 						<BrowserRouter>
 							<Routes>
-								<Route path='/' element={<Space />} />
+								<Route path='/' element={<Spaces />} />
 								<Route path='/setting' element={<Setting />}/>
 								<Route path='/about' element={<About />} />
 								<Route path='*' element={<NotFoundPage />} />
