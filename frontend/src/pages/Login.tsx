@@ -2,7 +2,6 @@ import React from 'react';
 import { Field, Form, Formik } from 'formik';
 import '../styles/Login.css';
 import { useUserContext } from '../context/UserContext';
-import { on } from 'events';
 
 function Login() {
 	const [isContainerActive, setIsContainerActive] = React.useState(true);
@@ -26,18 +25,36 @@ function Login() {
 	};
 	const onSubmitRegister = async (values: any, actions: any) => {
 		console.log({ values, actions });
-		const response = await fetch('http://localhost:8080/register', {
-			body: JSON.stringify(values),
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			method: 'POST',
-		});
 
-		const data = await response.json();
-		console.log('data', data);
+		let response = await fetch('http://localhost:8080/register', {
+				body: JSON.stringify(values),
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				method: 'POST',
+			});
 
-		setToken(data.token);
+		if (response?.status === 201){
+
+			console.log('Go ce co maintenant');
+
+			response = await fetch('http://localhost:8080/login', {
+				body: JSON.stringify(values),
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				method: 'POST',
+				
+			});
+
+			const data = await response.json();
+			console.log('data', data);
+			setToken(data.token);
+
+		} else if (response?.status === 409){
+			alert('user already exist');
+			return console.log('user already exist');
+		}
 	};
 
 	return (

@@ -4,7 +4,7 @@ import UserContextProvider from './context/UserContext';
 import './styles/index.css';
 import App from './pages/App';
 
-function Site() {
+function Root() {
 	return (
 		<UserContextProvider>
 			<App />
@@ -16,4 +16,4 @@ const rootElement = document.getElementById('root');
 const root = ReactDOM.createRoot(
 	rootElement ? rootElement : document.createElement('div')
 );
-root.render(<Site />);
+root.render(<Root />);

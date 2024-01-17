@@ -9,7 +9,7 @@ const SECRET = 'secret';
 const jwt = expressjwt({
 	secret: SECRET,
 	algorithms: ['HS256'],
-}).unless({ path: ['/login'] });
+}).unless({ path: ['/login','/register','/user'] });
 
 const users = [
 	{
@@ -72,13 +72,17 @@ app.post('/login', (req: JWTRequest, res: express.Response) => {
 	}
 });
 
+
 app.post('/register', (req: JWTRequest, res: express.Response) => {
+
+	console.log('req.body', req.body);
+
 	const { email, password } = req.body;
 
 	const userFound = users.find((user) => user.email === email);
 
 	if (userFound) {
-		return res.status(401).json({ message: 'User already exists' });
+		return res.status(409).json({ message: 'User already exists' });
 	} else {
 		const newUser = {
 			id: users.length + 1,
@@ -86,7 +90,7 @@ app.post('/register', (req: JWTRequest, res: express.Response) => {
 			password,
 		};
 		users.push(newUser);
-		return res.status(200).json({ message: 'User created' });
+		return res.status(201).json({ message: 'User created' });
 	}
 });
 
