@@ -6,28 +6,31 @@ import '../styles/index.css';
 import Space from './Space';
 import Setting from './Setting';
 import Header from './../components/Header';
+import Footer from './../components/Footer';
 import Login from './Login';
 import About from './About';
 import NotFoundPage from './NotFoundPage';
-
 
 function App() {
 	const { user } = useUserContext();
 
 	if (user) {
 		return (
-			<div className={`dybo`}>
-				<BrowserRouter>
-					<Routes>
-						<Route path='/' element={<Header />}>
-							<Route path='/' element={<Space />} />
-							<Route path='space' element={<Space />} />
-							<Route path='setting' element={<Setting />} />
-							<Route path='/about' element={<About />} />
-						</Route>
-						<Route path='*' element={<NotFoundPage />} />
-					</Routes>
-				</BrowserRouter>
+			<div className='grid place-items-center h-screen'>
+				<div className='container'>
+					<div className='flex flex-col min-h-screen max-h-screen py-0 md:px-32 md:py-24'>
+						<Header />
+						<BrowserRouter>
+							<Routes>
+								<Route path='/' element={<Space />} />
+								<Route path='/setting' element={<Setting />}/>
+								<Route path='/about' element={<About />} />
+								<Route path='*' element={<NotFoundPage />} />
+							</Routes>
+						</BrowserRouter>
+						<Footer/>
+					</div>
+				</div>
 			</div>
 		);
 	} else {

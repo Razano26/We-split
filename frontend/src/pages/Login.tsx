@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, Form, Formik } from 'formik';
-import '../styles/Login.css';
+//import '../styles/Login.css';
 import { useUserContext } from '../context/UserContext';
 
 function Login() {
@@ -60,6 +60,7 @@ function Login() {
 	return (
 		<div
 			className={`container ${
+				
 				isContainerActive ? ' right-panel-active' : ''
 			}`}
 		>
