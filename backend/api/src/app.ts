@@ -1,4 +1,5 @@
 import * as crypto from 'crypto';
+import cors from 'cors';
 import express from 'express';
 import { expressjwt, Request as JWTRequest } from 'express-jwt';
 import { sign } from 'jsonwebtoken';
@@ -13,12 +14,12 @@ const jwt = expressjwt({
 const users = [
 	{
 		id: 1,
-		username: 'admin',
+		email: 'admin@admin.com',
 		password: 'admin',
 	},
 	{
 		id: 2,
-		username: 'llabeyrie',
+		email: 'llabeyrie@gmail.com',
 		password: 'admin2',
 	},
 ];
@@ -27,6 +28,7 @@ const app = express();
 
 app.use(express.json());
 app.use(jwt);
+app.use(cors());
 app.use(
 	(
 		err: Error,
@@ -44,37 +46,47 @@ app.use(
 
 const port = process.env.PORT || 8080;
 
-app.get('/login', (req: JWTRequest, res: express.Response) => {
-	const { username, password } = req.query;
+app.post('/login', (req: JWTRequest, res: express.Response) => {
+	const { email, password } = req.body;
 	const user = req.auth;
 
 	console.log('user', user);
+	console.log('email', email);
+	console.log('password', password);
 
 	if (user) return res.status(200).json({ message: 'Already connect' });
 
 	const userFound = users.find(
-		(user) => user.username === username && user.password === password
+		(user) => user.email === email && user.password === password
 	);
 
 	if (userFound) {
 		const token = sign(
-			{ username: userFound.username, id: userFound.id },
+			{ email: userFound.email, id: userFound.id },
 			SECRET,
 			{ expiresIn: '1h' }
 		);
-		return res.status(200).json({ message: 'Login successful', token });
+		return res.status(200).json({ token });
 	} else {
 		return res.status(401).json({ message: 'Invalid credentials' });
 	}
 });
 
-app.get('/logout', (req: JWTRequest, res: express.Response) => {
-	const user = req.cookies.sessionId;
-	console.log('User: ', user);
-	if (user) {
-		return res.status(200).json({ message: 'Logout successful' });
+app.post('/register', (req: JWTRequest, res: express.Response) => {
+	const { email, password } = req.body;
+
+	const userFound = users.find((user) => user.email === email);
+
+	if (userFound) {
+		return res.status(401).json({ message: 'User already exists' });
 	} else {
-		return res.status(401).json({ message: 'Error user not log' });
+		const newUser = {
+			id: users.length + 1,
+			email,
+			password,
+		};
+		users.push(newUser);
+		return res.status(200).json({ message: 'User created' });
 	}
 });
 

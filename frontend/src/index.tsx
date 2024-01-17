@@ -1,53 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import UserContextProvider from './context/UserContext';
 import './styles/index.css';
 import App from './pages/App';
-import Space from './pages/Space';
-import Setting from "./pages/Setting";
-import Header from './components/Header';
-import Login from './pages/Login';
-import About from "./pages/About";
-import NotFoundPage from './pages/NotFoundPage';
 
 function Site() {
-	
-	const [isAuth, setIsAuth] = React.useState(false);
-	
-	React.useEffect(() => {
-				setIsAuth(false);
-	}, []);
-
-
-	if (isAuth) {
-		return (
-			<div className={`dybo`}>
-				<BrowserRouter>
-					<Routes>
-						<Route path='/' element={<Header />}>
-							<Route path='/' element={<App />}/>
-							<Route path='space' element={<Space />} />
-							<Route path='setting' element={<Setting />} />
-							<Route path='/about' element={<About />}/>
-						</Route>
-						<Route path='*' element={<NotFoundPage />} />
-					</Routes>
-				</BrowserRouter>
-			</div>
-		);
-	} else {
-		return (
-			<BrowserRouter>
-				<Routes>
-					<Route path='/'>
-						<Route index element={<Login />} />
-						<Route path='*' element={<NotFoundPage />} />
-					</Route>
-				</Routes>
-			</BrowserRouter>
-		);
-	}
+	return (
+		<UserContextProvider>
+			<App />
+		</UserContextProvider>
+	);
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const rootElement = document.getElementById('root');
+const root = ReactDOM.createRoot(
+	rootElement ? rootElement : document.createElement('div')
+);
 root.render(<Site />);
