@@ -1,13 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import UserContextProvider, { useUserContext } from '../context/UserContext';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useUserContext } from '../context/UserContext';
 import '../styles/index.css';
 import Spaces from './Spaces';
-import Setting from './Setting';
+import Settings from './Settings';
 import Header from './../components/Header';
 import Footer from './../components/Footer';
 import Login from './Login';
+import Register from './Register';
 import About from './About';
 import NotFoundPage from './NotFoundPage';
 
@@ -19,16 +18,19 @@ function App() {
 			<div className='grid place-items-center h-screen'>
 				<div className='container'>
 					<div className='flex flex-col min-h-screen max-h-screen py-0 md:px-32 md:py-24'>
-						<Header />
 						<BrowserRouter>
+							<Header />
 							<Routes>
-								<Route path='/' element={<Spaces />} />
-								<Route path='/setting' element={<Setting />}/>
+								<Route index element={<Spaces />} />
+								<Route
+									path='/settings'
+									element={<Settings />}
+								/>
 								<Route path='/about' element={<About />} />
 								<Route path='*' element={<NotFoundPage />} />
 							</Routes>
 						</BrowserRouter>
-						<Footer/>
+						<Footer />
 					</div>
 				</div>
 			</div>
@@ -39,7 +41,8 @@ function App() {
 				<Routes>
 					<Route path='/'>
 						<Route index element={<Login />} />
-						<Route path='*' element={<NotFoundPage />} />
+						<Route path='/register' element={<Register />} />
+						<Route path='*' element={<Navigate to='/' replace />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>

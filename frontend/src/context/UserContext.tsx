@@ -25,6 +25,7 @@ export const UserContext = createContext<UserContextInterface>({
 export const useUserContext = () => React.useContext(UserContext);
 
 export function useCreateLoginContext(): UserContextInterface {
+
 	const [user, setUser] = useState<User | null>(null);
 	const [token, setStateToken] = useState<string>('');
 
