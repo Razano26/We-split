@@ -19,8 +19,10 @@ function Login() {
 
 		const data = await response.json();
 		console.log('data', data);
-
-		setToken(data.token);
+		if (data.token !== undefined)
+			setToken(data.token);
+		else
+			alert(data.message);
 	};
 
 	return (
