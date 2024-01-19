@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String?
+  surname   String?
+  pseudo    String?
+  password  String
+  groups    Split[]   @relation("GroupMembers")
+  expenses  Expense[] @relation("UserExpense")
+  shares    Share[]   @relation("UserShare")
+}
+
+model Split {
+  id        Int       @id @default(autoincrement())
+  name      String
+  users     User[]    @relation("GroupMembers")
+  expenses  Expense[] @relation("GroupExpense")
+	@@map("Group")
+}
+
+model Expense {
+  id          Int       @id @default(autoincrement())
+  title       String
+  amount      Float
+  paidBy      Int
+  paidByUser  User      @relation(fields: [paidBy], references: [id], name: "UserExpense")
+  groupId     Int
+  group       Split     @relation(fields: [groupId], references: [id], name: "GroupExpense")
+  shares      Share[]   @relation("ExpenseShare")
+}
+
+model Share {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id], name: "UserShare")
+  expenseId Int
+  expense   Expense   @relation(fields: [expenseId], references: [id], name: "ExpenseShare")
+  amount    Float
+}
