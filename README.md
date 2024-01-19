@@ -23,7 +23,7 @@ We Split est une application web moderne conçue pour faciliter le partage des d
 3. **Configurer la base de données** : Suivez les instructions du fichier `DATABASE.md`.
 4. **Lancer l'application** :
    - Frontend : `npm start`
-   - Backend : `node server.js`
+   - Backend : `npm start`
 
 ## Contribution
 Les contributions sont les bienvenues. Pour contribuer, veuillez suivre les instructions suivantes :
