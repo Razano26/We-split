@@ -1,46 +1,19 @@
-import app from "./Auth";
+import express, { Express } from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import userRoutes from '../routes/userRoutes';
+//import groupRoutes from './routes/groupRoutes';
+//import expenseRoutes from './routes/expenseRoutes';
+//import shareRoutes from './routes/shareRoutes';
 
+const app: Express = express();
 
+app.use(cors());
+app.use(bodyParser.json());
 
-// ----------------------------------------------------------------------
+app.use('/users', userRoutes);
+//app.use('/groups', groupRoutes);
+//app.use('/expenses', expenseRoutes);
+//app.use('/shares', shareRoutes);
 
-
-
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
-async function main() {
-	await prisma.user.create({
-		data: {
-			name: 'Louis',
-			surname: 'Labeyrie',
-			email: 'alice@prisma.io',
-			pseudo: 'louislab',
-			password: 'password',
-		},
-	});
-
-	const allUsers = await prisma.user.findMany();
-	console.dir(allUsers, { depth: null });
-}
-
-main()
-	.then(async () => {
-		await prisma.$disconnect();
-	})
-	.catch(async (e) => {
-		console.error(e);
-		await prisma.$disconnect();
-		process.exit(1);
-	});
-
-
-
-// ----------------------------------------------------------------------
-
-const port = process.env.PORT || 8080;
-
-app.listen(port, () => {
-	console.log(`Server listening on ${port}`);
-});
+export default app;
