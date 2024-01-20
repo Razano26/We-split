@@ -22,8 +22,6 @@ export const login = async (req: JWTRequest, res: Response) => {
 		},
 	});
 
-    console.log(user);
-
 	if (user) {
 		const token = sign({ email: user.email, id: user.id }, SECRET, {
 			expiresIn: '1h',

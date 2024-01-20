@@ -8,8 +8,6 @@ function Register() {
 	const { setToken } = useUserContext();
 
 	const onSubmitRegister = async (values: any, actions: any) => {
-		console.log({ values, actions });
-
 		let response = await fetch(
 			process.env.REACT_APP_API_URL + '/register',
 			{
@@ -31,12 +29,10 @@ function Register() {
 			});
 
 			const data = await response.json();
-			console.log('data', data);
 			setToken(data.token);
 			navigate('/');
 		} else if (response?.status === 409) {
 			alert('user already exist');
-			return console.log('user already exist');
 		}
 	};
 

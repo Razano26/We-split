@@ -43,7 +43,6 @@ function Spaces() {
 		<main className='flex-1 bg-indigo-50 p-2 overflow-auto'>
 			<div className='flex flex-col space-y-5'>
 				{spaces.map((space) => {
-					console.log(space);
 					return (
 						<SpaceBlock
 							space={space}

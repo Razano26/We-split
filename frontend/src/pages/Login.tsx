@@ -7,7 +7,6 @@ function Login() {
 	const { setToken } = useUserContext();
 
 	const onSubmitConnection = async (values: any, actions: any) => {
-		console.log({ values, actions });
 		const response = await fetch(process.env.REACT_APP_API_URL + '/login', {
 			body: JSON.stringify(values),
 			headers: {
@@ -17,7 +16,6 @@ function Login() {
 		});
 
 		const data = await response.json();
-		console.log('data', data);
 		if (data.token !== undefined) setToken(data.token);
 		else alert(data.message);
 	};
