@@ -2,7 +2,7 @@ import express, { Express } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import userRoutes from '../routes/userRoutes';
-//import groupRoutes from './routes/groupRoutes';
+import splitRoutes from '../routes/splitRoutes';
 //import expenseRoutes from './routes/expenseRoutes';
 //import shareRoutes from './routes/shareRoutes';
 
@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/users', userRoutes);
-//app.use('/groups', groupRoutes);
+app.use('/splits', splitRoutes);
 //app.use('/expenses', expenseRoutes);
 //app.use('/shares', shareRoutes);
 

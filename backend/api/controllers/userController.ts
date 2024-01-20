@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, type User} from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 export const getAllUsers = async (req: Request, res: Response) => {
-	const users = await prisma.user.findMany();
+	const users: User[] = await prisma.user.findMany();
 	if (users.length === 0) {
 		res.status(404).json({ message: 'No users found' });
 	} else {
