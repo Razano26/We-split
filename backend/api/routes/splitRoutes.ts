@@ -6,7 +6,8 @@ import {
 	updateSplit,
 	deleteSplit,
 	addUserInSplit,
-    dellUserInSplit,
+	dellUserInSplit,
+	getSplitExpenses,
 } from '../controllers/splitController';
 
 const router = Router();
@@ -18,5 +19,6 @@ router.put('/:id', updateSplit);
 router.delete('/:id', deleteSplit);
 router.patch('/:id/user', addUserInSplit);
 router.delete('/:id/user', dellUserInSplit);
+router.get('/:id/expenses', getSplitExpenses);
 
 export default router;

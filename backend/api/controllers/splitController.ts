@@ -223,3 +223,20 @@ export const dellUserInSplit = async (req: Request, res: Response) => {
 		userInSplit: Split,
 	});
 };
+
+export const getSplitExpenses = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const split = await prisma.split.findUnique({
+        where: {
+            id: Number(id),
+        },
+        include: {
+            expenses: true,
+        },
+    });
+    if (!split) {
+        res.status(404).json({ message: 'Split not found' });
+        return;
+    }
+    res.status(200).json(split.expenses);
+};
