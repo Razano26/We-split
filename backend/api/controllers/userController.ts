@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { PrismaClient, type User} from '@prisma/client';
+import { PrismaClient, type User } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -87,7 +87,10 @@ export const updateUser = async (req: Request, res: Response) => {
 			password,
 		},
 	});
-	res.json(user);
+	res.status(200).json({
+		message: 'User updated',
+		user,
+	});
 };
 
 export const deleteUser = async (req: Request, res: Response) => {
@@ -95,9 +98,9 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 	// check if user exists
 	const user = await prisma.user.findUnique({
-	where: {
-		id: Number(id)
-	}
+		where: {
+			id: Number(id),
+		},
 	});
 
 	if (!user) {
@@ -111,7 +114,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 		});
 		res.status(200).json({
 			message: 'User deleted',
-			user: user
+			user: user,
 		});
 	}
 };
