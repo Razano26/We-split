@@ -21,6 +21,7 @@ export const getSplitById = async (req: Request, res: Response) => {
 		where: {
 			id: Number(id),
 		},
+        include: { users: true },
 	});
 	if (!split) {
 		res.status(404).json({ message: 'Split not found' });
