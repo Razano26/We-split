@@ -47,5 +47,5 @@ model Share {
   user      User      @relation(fields: [userId], references: [id], name: "UserShare")
   expenseId Int
   expense   Expense   @relation(fields: [expenseId], references: [id], name: "ExpenseShare")
-  amount    Float
+  percent   Float
 }
