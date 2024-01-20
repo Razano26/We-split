@@ -118,3 +118,34 @@ export const deleteUser = async (req: Request, res: Response) => {
 		});
 	}
 };
+
+
+export const getUserBySplits = async (req: Request, res: Response) => {
+	const { id } = req.params;
+
+	// check if user exists
+	const user = await prisma.user.findUnique({
+		where: {
+			id: Number(id),
+		},
+	});
+
+	if (!user) {
+		res.status(404).json({ message: 'User not found' });
+		return;
+	}
+
+	const splits = await prisma.split.findMany({
+		where: {
+			users: {
+				some: {
+					id: Number(id),
+				},
+			},
+		},
+	});
+	res.status(200).json({
+		message: 'User splits',
+		splits,
+	});
+}
