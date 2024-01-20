@@ -3,26 +3,26 @@ import { useUserContext } from '../context/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Register() {
-
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const { setToken } = useUserContext();
 
 	const onSubmitRegister = async (values: any, actions: any) => {
 		console.log({ values, actions });
 
-		let response = await fetch('http://localhost:8080/register', {
-			body: JSON.stringify(values),
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			method: 'POST',
-		});
+		let response = await fetch(
+			process.env.REACT_APP_API_URL + '/register',
+			{
+				body: JSON.stringify(values),
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				method: 'POST',
+			}
+		);
 
 		if (response?.status === 201) {
-			console.log('Go ce co maintenant');
-
-			response = await fetch('http://localhost:8080/login', {
+			response = await fetch(process.env.REACT_APP_API_URL + '/login', {
 				body: JSON.stringify(values),
 				headers: {
 					'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ function Register() {
 			const data = await response.json();
 			console.log('data', data);
 			setToken(data.token);
-            navigate('/');
+			navigate('/');
 		} else if (response?.status === 409) {
 			alert('user already exist');
 			return console.log('user already exist');
@@ -52,7 +52,7 @@ function Register() {
 								</div>
 								<Formik
 									initialValues={{
-                                        name: '',
+										name: '',
 										email: '',
 										password: '',
 									}}

@@ -4,12 +4,11 @@ import { useUserContext } from '../context/UserContext';
 import { Link } from 'react-router-dom';
 
 function Login() {
-
 	const { setToken } = useUserContext();
 
 	const onSubmitConnection = async (values: any, actions: any) => {
 		console.log({ values, actions });
-		const response = await fetch('http://localhost:8080/login', {
+		const response = await fetch(process.env.REACT_APP_API_URL + '/login', {
 			body: JSON.stringify(values),
 			headers: {
 				'Content-Type': 'application/json',
@@ -19,10 +18,8 @@ function Login() {
 
 		const data = await response.json();
 		console.log('data', data);
-		if (data.token !== undefined)
-			setToken(data.token);
-		else
-			alert(data.message);
+		if (data.token !== undefined) setToken(data.token);
+		else alert(data.message);
 	};
 
 	return (
