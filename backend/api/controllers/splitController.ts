@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export const getAllSplits = async (req: Request, res: Response) => {
 	const splits: Split[] = await prisma.split.findMany({
-		include: { users: true },
+		include: { users: true, expenses: true },
 	});
 	if (splits.length === 0) {
 		res.status(404).json({ message: 'No splits found' });

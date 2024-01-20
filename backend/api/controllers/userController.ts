@@ -119,8 +119,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 	}
 };
 
-
-export const getUserBySplits = async (req: Request, res: Response) => {
+export const getSplitsByUser = async (req: Request, res: Response) => {
 	const { id } = req.params;
 
 	// check if user exists
@@ -143,9 +142,13 @@ export const getUserBySplits = async (req: Request, res: Response) => {
 				},
 			},
 		},
+		include: {
+			expenses: true,
+			users: true,
+		}
 	});
 	res.status(200).json({
 		message: 'User splits',
 		splits,
 	});
-}
+};

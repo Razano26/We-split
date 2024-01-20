@@ -5,7 +5,7 @@ import {
 	getUserById,
 	updateUser,
 	deleteUser,
-	getUserBySplits,
+	getSplitsByUser,
 } from '../controllers/userController';
 
 const router = Router();
@@ -15,6 +15,6 @@ router.get('/:id', getUserById);
 router.post('/', createUser);
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
-router.get('/:id/splits', getUserBySplits);
+router.get('/:id/splits', getSplitsByUser);
 
 export default router;
