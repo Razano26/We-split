@@ -5,7 +5,16 @@ import { useUserContext } from '../context/UserContext';
 export interface Space {
 	id: number;
 	name: string;
+	expenses: Expense[];
 }
+
+export interface Expense {
+	id: number;
+	title: string;
+	amount: number;
+	paidBy: number;
+}
+
 
 function Spaces() {
 	const [spaces, setSpaces] = useState<Space[]>([]);

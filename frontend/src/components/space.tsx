@@ -1,6 +1,27 @@
+import { useUserContext } from '../context/UserContext';
 import { Space } from '../pages/Spaces';
 
+const formatter = new Intl.NumberFormat('fr-FR', {
+	style: 'currency',
+	currency: 'EUR',
+});
+
 function SpaceBlock({ space, name }: { space: Space; name: string }) {
+
+	const { user } = useUserContext();
+
+	const myTotal = space.expenses?.reduce((acc, expense) => {
+		if (expense.paidBy === user?.id){
+			return acc + expense.amount;
+		} else {
+			return acc - expense.amount;
+		}
+	}, 0);
+
+	const total = space.expenses?.reduce((acc, expense) => {
+		return acc + expense.amount;
+	}, 0);
+	
 	return (
 		<div className='bg-white rounded-3xl border p-6'>
 			<div className='flex flex-col'>
@@ -13,10 +34,10 @@ function SpaceBlock({ space, name }: { space: Space; name: string }) {
 						<div className='flex flex-col pt-4'>
 							<p className='text-sm'>
 								Mon solde :
-								<span className='text-red-600'>-10 €</span>
+								<span className={`${myTotal >= 0 ? 'text-green-600' : 'text-red-600'}`}> {formatter.format(myTotal)}</span>
 							</p>
 							<p></p>
-							<p className='text-sm'>Solde total : 20 €</p>
+							<p className='text-sm'>Solde total : {formatter.format(total)}</p>
 							<p></p>
 						</div>
 					</div>
@@ -29,7 +50,7 @@ function SpaceBlock({ space, name }: { space: Space; name: string }) {
 										scope='col'
 										className='text-sm font-medium text-gray-900 text-left p-2'
 									>
-										Prénom
+										Titre
 									</th>
 									<th
 										scope='col'
@@ -40,30 +61,20 @@ function SpaceBlock({ space, name }: { space: Space; name: string }) {
 								</tr>
 							</thead>
 							<tbody>
-								<tr className='bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100'>
-									<td className='text-sm text-gray-900 font-light whitespace-nowrap'>
-										Mark
-									</td>
-									<td className='text-sm font-light whitespace-nowrap text-green-600'>
-										+20€
-									</td>
-								</tr>
-								<tr className='bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100'>
-									<td className='text-sm text-gray-900 font-light whitespace-nowrap'>
-										Jacob
-									</td>
-									<td className='text-sm font-light whitespace-nowrap text-red-600'>
-										-10€
-									</td>
-								</tr>
-								<tr className='bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100'>
-									<td className='text-sm text-gray-900 font-light whitespace-nowrap'>
-										Jules
-									</td>
-									<td className='text-sm font-light whitespace-nowrap text-green-600'>
-										+40€
-									</td>
-								</tr>
+								{
+									space.expenses?.map((expense) => {
+										return (
+											<tr className='bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100'>
+												<td className='text-sm text-gray-900 font-light whitespace-nowrap'>
+													{expense.title}
+												</td>
+												<td className='text-sm font-light whitespace-nowrap text-green-600'>
+													{formatter.format(expense.amount)}
+												</td>
+											</tr>
+										);
+									})
+								}
 							</tbody>
 						</table>
 					</div>
