@@ -9,24 +9,26 @@ export interface Space {
 
 function Spaces() {
 	const [spaces, setSpaces] = useState<Space[]>([]);
-	const user = useUserContext();
+	const { token, user } = useUserContext();
 
 	useEffect(() => {
-		if (!user.token) return;
+		if (!token) return;
 
-		fetch(process.env.REACT_APP_API_URL + '/splits', {
-			headers: {
-				Authorization: `Bearer ${user.token}`,
-			},
-		})
+		fetch(
+			process.env.REACT_APP_API_URL + '/users/' + user?.id + '/splits',
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		)
 			.then((res) => {
 				return res.json();
 			})
 			.then((data) => {
-				console.log(data);
-				setSpaces(data);
+				setSpaces(data.splits);
 			});
-	}, [user.token]);
+	}, [token, user]);
 
 	return (
 		<main className='flex-1 bg-indigo-50 p-2 overflow-auto'>

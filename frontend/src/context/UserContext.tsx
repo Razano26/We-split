@@ -42,6 +42,7 @@ export function useCreateLoginContext(): UserContextInterface {
 		const token = localStorage.getItem('token');
 		if (token) {
 			setStateToken(token);
+			setUser(jwtDecode<User>(token));
 		}
 	}, []);
 
