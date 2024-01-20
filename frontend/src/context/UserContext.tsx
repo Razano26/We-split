@@ -38,6 +38,13 @@ export function useCreateLoginContext(): UserContextInterface {
 		}
 	}, [token]);
 
+	useEffect(() => {
+		const token = localStorage.getItem('token');
+		if (token) {
+			setStateToken(token);
+		}
+	}, []);
+
 	const setToken = (token: string) => {
 		setStateToken(token);
 		localStorage.setItem('token', token);

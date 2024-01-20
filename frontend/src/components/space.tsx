@@ -1,12 +1,14 @@
-function Space() {
-    return (
+import { Space } from '../pages/Spaces';
+
+function SpaceBlock({ space, name }: { space: Space; name: string }) {
+	return (
 		<div className='bg-white rounded-3xl border p-6'>
 			<div className='flex flex-col'>
 				<div className='flex flex-row justify-around'>
 					<div className='flex flex-col justify-center items-center'>
 						<div className='flex justify-start items-center'>
 							<button className='inline-flex items-center justify-center w-9 h-9 text-blue-100 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full'></button>
-							<p className='ml-2 text-base'>My Space</p>
+							<p className='ml-2 text-base'>{name}</p>
 						</div>
 						<div className='flex flex-col pt-4'>
 							<p className='text-sm'>
@@ -76,4 +78,4 @@ function Space() {
 	);
 }
 
-export default Space;
+export default SpaceBlock;
