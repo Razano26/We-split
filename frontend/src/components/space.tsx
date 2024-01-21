@@ -7,11 +7,10 @@ const formatter = new Intl.NumberFormat('fr-FR', {
 });
 
 function SpaceBlock({ space, name }: { space: Space; name: string }) {
-
 	const { user } = useUserContext();
 
 	const myTotal = space.expenses?.reduce((acc, expense) => {
-		if (expense.paidBy === user?.id){
+		if (expense.paidBy === user?.id) {
 			return acc + expense.amount;
 		} else {
 			return acc - expense.amount;
@@ -21,7 +20,7 @@ function SpaceBlock({ space, name }: { space: Space; name: string }) {
 	const total = space.expenses?.reduce((acc, expense) => {
 		return acc + expense.amount;
 	}, 0);
-	
+
 	return (
 		<div className='bg-white rounded-3xl border p-6'>
 			<div className='flex flex-col'>
@@ -34,10 +33,21 @@ function SpaceBlock({ space, name }: { space: Space; name: string }) {
 						<div className='flex flex-col pt-4'>
 							<p className='text-sm'>
 								Mon solde :
-								<span className={`${myTotal >= 0 ? 'text-green-600' : 'text-red-600'}`}> {formatter.format(myTotal)}</span>
+								<span
+									className={`${
+										myTotal >= 0
+											? 'text-green-600'
+											: 'text-red-600'
+									}`}
+								>
+									{' '}
+									{formatter.format(myTotal)}
+								</span>
 							</p>
 							<p></p>
-							<p className='text-sm'>Solde total : {formatter.format(total)}</p>
+							<p className='text-sm'>
+								Solde total : {formatter.format(total)}
+							</p>
 							<p></p>
 						</div>
 					</div>
@@ -61,20 +71,29 @@ function SpaceBlock({ space, name }: { space: Space; name: string }) {
 								</tr>
 							</thead>
 							<tbody>
-								{
-									space.expenses?.map((expense) => {
-										return (
-											<tr className='bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100'>
-												<td className='text-sm text-gray-900 font-light whitespace-nowrap'>
-													{expense.title}
-												</td>
-												<td className='text-sm font-light whitespace-nowrap text-green-600'>
-													{formatter.format(expense.amount)}
-												</td>
-											</tr>
-										);
-									})
-								}
+								{space.expenses?.slice(0,5).map((expense) => {
+									return (
+										<tr className='bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100'>
+											<td className='text-sm text-gray-900 font-light whitespace-nowrap'>
+												{expense.title}
+											</td>
+											<td
+												className={`text-sm font-light whitespace-nowrap ${
+													expense.paidBy === user?.id
+														? 'text-green-600'
+														: 'text-red-600'
+												}`}
+											>
+												{expense.paidBy === user?.id
+													? '+'
+													: '-'}
+												{formatter.format(
+													expense.amount
+												)}
+											</td>
+										</tr>
+									);
+								})}
 							</tbody>
 						</table>
 					</div>
