@@ -15,11 +15,13 @@ const Header = () => {
 				<div className='relative flex h-16 items-center justify-between'>
 					<div className='flex flex-1 items-center justify-start'>
 						<div className='flex flex-shrink-0 items-center'>
-							<img
-								className='h-8 w-auto'
-								src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500'
-								alt='Your Company'
-							/>
+							<Link to='/'>
+								<img
+									className='h-8 w-auto'
+									src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500'
+									alt='Your Company'
+								/>
+							</Link>
 						</div>
 						<div className='relative group ml-6'>
 							<button
