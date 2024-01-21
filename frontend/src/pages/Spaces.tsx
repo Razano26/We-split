@@ -39,6 +39,25 @@ function Spaces() {
 			});
 	}, [token, user]);
 
+	const updateSpaces = () => {
+		if (!token) return;
+
+		fetch(
+			process.env.REACT_APP_API_URL + '/users/' + user?.id + '/splits',
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		)
+			.then((res) => {
+				return res.json();
+			})
+			.then((data) => {
+				setSpaces(data.splits);
+			});
+	}
+
 	return (
 		<main className='flex-1 bg-indigo-50 p-2 overflow-auto'>
 			<div className='flex flex-col space-y-5'>
@@ -48,6 +67,7 @@ function Spaces() {
 							space={space}
 							key={space.id}
 							name={space.name}
+							updateSpaces={updateSpaces}
 						/>
 					);
 				})}

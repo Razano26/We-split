@@ -13,7 +13,7 @@ const Header = () => {
 		<header className='p-2 bg-indigo-200'>
 			<div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
 				<div className='relative flex h-16 items-center justify-between'>
-					<div className='flex flex-1 items-center justify-start'> 
+					<div className='flex flex-1 items-center justify-start'>
 						<div className='flex flex-shrink-0 items-center'>
 							<Link to='/'>
 								<img
@@ -24,7 +24,7 @@ const Header = () => {
 							</Link>
 						</div>
 						<div className='relative group ml-6'>
-							<button 
+							<button
 								id='dropdown-button'
 								className='inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500'
 								onClick={() =>
@@ -40,9 +40,9 @@ const Header = () => {
 									aria-hidden='true'
 								>
 									<path
-										fill-rule='evenodd'
+										fillRule='evenodd'
 										d='M6.293 9.293a1 1 0 011.414 0L10 11.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z'
-										clip-rule='evenodd'
+										clipRule='evenodd'
 									/>
 								</svg>
 							</button>
@@ -116,14 +116,14 @@ const Header = () => {
 									to={`/`}
 									className='block px-4 py-2 text-sm text-gray-700'
 									onClick={() => setAccountOppen(false)}
-									>
+								>
 									Your Profile
 								</Link>
 								<Link
 									to='/settings'
 									className='block px-4 py-2 text-sm text-gray-700'
 									onClick={() => setAccountOppen(false)}
-									>
+								>
 									Settings
 								</Link>
 								<button
