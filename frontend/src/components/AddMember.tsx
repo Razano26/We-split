@@ -1,11 +1,21 @@
-import { Fragment, useRef } from 'react';
+import { Space } from '../pages/Spaces';
+import { useUserContext } from '../context/UserContext';
+import { Formik, Field, Form } from 'formik';
+import { Fragment, useEffect, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import React from 'react';
-import { Space } from '../pages/Spaces';
-import { Formik, Field, Form } from 'formik';
-import { useUserContext } from '../context/UserContext';
 
-export default function AddExpense({
+interface User {
+    id: number;
+    email: string;
+    name: string;
+    surname: string;
+    pseudo: string;
+    password: string;
+}
+	
+
+export default function AddMember({
 	open,
 	setOpen,
 	space,
@@ -16,33 +26,47 @@ export default function AddExpense({
 	space: Space;
 	updateSpaces: () => void;
 }) {
-	const cancelButtonRef = useRef(null);
-	const { user, token } = useUserContext();
+    const cancelButtonRef = useRef(null);
+	const { token } = useUserContext();
 
-	const submitAddExpense = (values: any) => {
-		fetch(process.env.REACT_APP_API_URL + '/expenses', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
-			},
-			body: JSON.stringify({
-				title: values.title,
-				amount: values.amount,
-				paidBy: user?.id,
-				groupId: space.id,
-			}),
-		})
-			.then((res) => {
-				return res.json();
-			})
-			.then((data) => {
-				updateSpaces();
-				setOpen(false);
-			});
-	};
+    const [users, setUsers] = React.useState<User[]>([]);
 
-	return (
+    useEffect(() => {
+        fetch(process.env.REACT_APP_API_URL + '/users', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                console.log(data);
+                setUsers(data);
+            });
+    }, [token]);
+
+    const submitAddMember = (values: any) => {
+        fetch(process.env.REACT_APP_API_URL + '/splits/'+space.id+'/user', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                userId: values.user_id,
+            }),
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                updateSpaces();
+                setOpen(false);
+            });
+    };
+
+    return (
 		<Transition.Root show={open} as={Fragment}>
 			<Dialog
 				as='div'
@@ -97,66 +121,34 @@ export default function AddExpense({
 										</svg>
 									</div>
 									<h1 className='text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4'>
-										Enter Expense Details
+										Find user
 									</h1>
 									<Formik
 										initialValues={{
-											title: '',
-											amount: '',
+											user_id: '',
 										}}
 										onSubmit={(values, actions) => {
-											submitAddExpense(values);
+											submitAddMember(values);
 											actions.setSubmitting(false);
 										}}
 									>
 										<Form>
 											<label
 												htmlFor='name'
-												className='text-gray-800 text-sm font-bold leading-tight tracking-normal'
+												className='text-gray-800 text-sm font-bold leading-tight tracking-normal mb-2'
 											>
-												Title
+												User
 											</label>
 											<Field
-												name='title'
+												name='user_id'
 												className='mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-yellow-500 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border'
-												placeholder='MacDonalds'
-												type='text'
+												as='select'
 												required
-											/>
-											<label
-												htmlFor='name'
-												className='text-gray-800 text-sm font-bold leading-tight tracking-normal'
 											>
-												Amount
-											</label>
-											<div className='relative mb-5 mt-2'>
-												<div className='absolute right-3 text-gray-600 flex items-center pr-3 h-full cursor-pointer'>
-													<svg
-														xmlns='http://www.w3.org/2000/svg'
-														className='icon icon-tabler icon-tabler-calendar-event'
-														width='20'
-														height='20'
-														viewBox='0 0 24 24'
-														strokeWidth='1.5'
-														stroke='currentColor'
-														fill='none'
-														strokeLinecap='round'
-														strokeLinejoin='round'
-													>
-														<path d='M4 10h12' />
-														<path d='M4 14h9' />
-														<path d='M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2' />{' '}
-													</svg>
-												</div>
-												<Field
-													name='amount'
-													className='mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-yellow-500 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border'
-													placeholder='15.99'
-													type='number'
-													min={0}
-													required
-												/>
-											</div>
+                                                {users?.map((user) => (
+                                                    <option value={user.id}>{user.name}</option>
+                                                ))}
+                                            </Field>
 											<div className='flex items-center justify-end w-full'>
 												<button
 													className='focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm'

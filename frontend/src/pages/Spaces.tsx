@@ -1,4 +1,4 @@
-import SpaceBlock from '../components/space';
+import SpaceBlock from '../components/SpaceBlock';
 import { useEffect, useState } from 'react';
 import { useUserContext } from '../context/UserContext';
 

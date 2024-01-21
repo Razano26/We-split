@@ -29,11 +29,16 @@ const data = {
 
 export function SpaceChart() {
 	return (
-		<Pie
-			data={data}
-			width={150}
-			height={150}
-			options={{ maintainAspectRatio: false }}
-		/>
+		<div>
+			<p className='mb-4 text-md'>Répartition des dépenses</p>
+			<div>
+				<Pie
+					data={data}
+					width={150}
+					height={150}
+					options={{ maintainAspectRatio: false }}
+				/>
+			</div>
+		</div>
 	);
 }
