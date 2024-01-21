@@ -10,30 +10,39 @@ import Register from './Register';
 import About from './About';
 import NotFoundPage from './NotFoundPage';
 
+import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js';
+
+ChartJS.register(ArcElement, Tooltip);
+
 function App() {
 	const { user } = useUserContext();
 
 	if (user) {
 		return (
-			<div className='grid place-items-center h-screen'>
-				<div className='container'>
-					<div className='flex flex-col min-h-screen max-h-screen py-0 md:px-32 md:py-24'>
-						<BrowserRouter>
-							<Header />
-							<Routes>
-								<Route index element={<Spaces />} />
-								<Route
-									path='/settings'
-									element={<Settings />}
-								/>
-								<Route path='/about' element={<About />} />
-								<Route path='*' element={<NotFoundPage />} />
-							</Routes>
-						</BrowserRouter>
-						<Footer />
+			<>
+				<div className='grid place-items-center h-screen'>
+					<div className='container'>
+						<div className='flex flex-col min-h-screen max-h-screen'>
+							<BrowserRouter>
+								<Header />
+								<Routes>
+									<Route index element={<Spaces />} />
+									<Route
+										path='/settings'
+										element={<Settings />}
+									/>
+									<Route path='/about' element={<About />} />
+									<Route
+										path='*'
+										element={<NotFoundPage />}
+									/>
+								</Routes>
+							</BrowserRouter>
+						</div>
 					</div>
 				</div>
-			</div>
+				<Footer />
+			</>
 		);
 	} else {
 		return (

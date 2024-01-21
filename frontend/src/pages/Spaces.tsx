@@ -15,7 +15,6 @@ export interface Expense {
 	paidBy: number;
 }
 
-
 function Spaces() {
 	const [spaces, setSpaces] = useState<Space[]>([]);
 	const { token, user } = useUserContext();
@@ -56,10 +55,10 @@ function Spaces() {
 			.then((data) => {
 				setSpaces(data.splits);
 			});
-	}
+	};
 
 	return (
-		<main className='flex-1 bg-indigo-50 p-2 overflow-auto'>
+		<main className='flex-1 bg-transparent p-4 overflow-auto rounded-xl scrollbar-thumb-yellow-400/75 scrollbar-track-gray-100 scrollbar-thin'>
 			<div className='flex flex-col space-y-5'>
 				{spaces.map((space) => {
 					return (

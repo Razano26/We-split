@@ -132,7 +132,7 @@ export default function AddSplit({
 											</label>
 											<Field
 												name='title'
-												className='mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border'
+												className='mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-yellow-500 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border'
 												placeholder='WeekEnd Trip'
 												type='text'
 												required
@@ -148,7 +148,7 @@ export default function AddSplit({
 												</button>
 												<button
 													type='submit'
-													className='focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm ml-3'
+													className='focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition duration-150 ease-in-out hover:bg-yellow-400 bg-yellow-500 rounded text-white px-8 py-2 text-sm ml-3'
 												>
 													Submit
 												</button>
