@@ -1,4 +1,4 @@
-export default function SpaceButton({
+export function SpaceButton({
 	setOpenAddExpence,
 	setOpenAddMember,
 }: {

@@ -3,7 +3,7 @@ import { useUserContext } from '../context/UserContext';
 import { Space } from '../pages/Spaces';
 import AddExpense from './AddExpence';
 import AddMember from './AddMember';
-import SpaceButton from './SpaceButton';
+import { SpaceButton } from './SpaceButton';
 import { SpaceChart } from './SpaceChart';
 
 const formatter = new Intl.NumberFormat('fr-FR', {
@@ -88,7 +88,10 @@ function SpaceBlock({
 						<SpaceChart />
 					</div>
 					<div className='flex items-end'>
-						<SpaceButton setOpenAddExpence={setAddExpenseOpen} setOpenAddMember={setAddMemberOpen}/>
+						<SpaceButton
+							setOpenAddExpence={setAddExpenseOpen}
+							setOpenAddMember={setAddMemberOpen}
+						/>
 					</div>
 				</div>
 			</div>
@@ -98,7 +101,7 @@ function SpaceBlock({
 				space={space}
 				updateSpaces={updateSpaces}
 			/>
-			<AddMember 
+			<AddMember
 				open={isAddMemberOpen}
 				setOpen={setAddMemberOpen}
 				space={space}
