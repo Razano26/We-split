@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+    backend:
+        build:
+            context: ./backend/api
+        restart: always
+        environment:
+            NODE_ENV: production
+            DATABASE_URL: postgres://postgres:postgres@db:5432/we-split?schema=public
+        ports:
+            - 3001:3001
+        depends_on:
+            - db
+    frontend:
+        build:
+            context: ./frontend
+            args:
+                REACT_APP_API_URL: http://localhost:3001
+        restart: always
+        environment:
+            NODE_ENV: production
+        ports:
+            - 3000:3000
+    db:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: we-split
+        ports:
+            - '5432:5432'
