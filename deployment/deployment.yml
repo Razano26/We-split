@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: wesplit-front
-        image: razano/wesplit-back:latest
+        image: razano/wesplit-front:latest
         env:
         - name: NODE_ENV
           value: production
@@ -27,7 +27,7 @@ spec:
           value: https://api.wesplit.fr
         resources:
           limits:
-            memory: "128Mi"
+            memory: "2Gi"
             cpu: "500m"
         ports:
         - containerPort: 3000
@@ -61,7 +61,7 @@ spec:
           value: postgres://postgres:Rf4YZyCHks@wesplit-postgresql.wesplit.svc.cluster.local:5432/we-split
         resources:
           limits:
-            memory: "128Mi"
+            memory: "2Gi"
             cpu: "500m"
         ports:
         - containerPort: 3001
