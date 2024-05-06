@@ -14,7 +14,7 @@ const SECRET = 'secret';
 const jwt = expressjwt({
 	secret: SECRET,
 	algorithms: ['HS256'],
-}).unless({ path: ['/login', '/register'] });
+}).unless({ path: ['/login', '/register', '/'] });
 
 const app: Express = express();
 
@@ -38,6 +38,10 @@ app.use('/splits', splitRoutes);
 app.use('/expenses', expenseRoutes);
 app.use('/shares', shareRoutes);
 app.use(authRoutes);
+app.get('/', (req, res) => {
+	res.send('Welcome to the WeSplit API');
+}
+);
 
 //app.use(function (err, req, res, next) {
 //	if (err.name === 'UnauthorizedError') {
