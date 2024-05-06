@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build ./backend/api --file ./backend/api/Dockerfile --tag wesplit-back:latest
+      run: docker build ./backend/api --file ./backend/api/Dockerfile --tag ghcr.io/razano26/wesplit-back:latest
     - name: Log in to GitHub Container Registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
     - name: Push the Docker image
@@ -24,7 +24,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build ./frontend --file ./frontend/Dockerfile --tag wesplit-front:latest
+      run: docker build ./frontend --file ./frontend/Dockerfile --tag ghcr.io/razano26/wesplit-front:latest
     - name: Log in to GitHub Container Registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
     - name: Push the Docker image
