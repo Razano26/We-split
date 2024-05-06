@@ -3,7 +3,11 @@
 ## À propos
 We Split est une application web moderne conçue pour faciliter le partage des dépenses au sein de groupes. Développée dans le cadre du programme 'DO' de l'école d'ingénieur Polytech Montpellier, cette application se veut être une alternative enrichie à l'application Tricount. We Split est bâtie en utilisant React.js pour l'interface utilisateur, avec une API backend en Express et une base de données PostgreSQL.
 
+
+L'application est actuellement deployée dans un cluster Kubernetes self-managed a l'aide des manifestes contenus dans le dossier `deployment`.
+
 Vous pouvez accéder à la version en ligne de l'application à l'adresse suivante : [wesplit.fr](https://wesplit.fr)
+
 Sont également disponibles les documentations intereractive de l'API à l'adresse suivante : [doc.wesplit.fr](https://doc.wesplit.fr)
 
 ## Fonctionnalités
