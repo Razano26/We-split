@@ -5,7 +5,7 @@
 	"main": "server.ts",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "ts-node src/index.ts",
+		"start": "npx prisma migrate deploy && ts-node src/index.ts",
 		"dev": "nodemon --exec ts-node src/index.ts | pino-pretty -c -C -t"
 	},
 	"keywords": [],

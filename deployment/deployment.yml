@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wesplit-front
+  labels:
+    app: wesplit
+    role: front
+  namespace: wesplit
+spec:
+  selector:
+    matchLabels:
+      app: wesplit
+      role: front
+  template:
+    metadata:
+      labels:
+        app: wesplit
+        role: front
+    spec:
+      containers:
+      - name: wesplit-front
+        image: razano/wesplit-back:latest
+        env:
+        - name: NODE_ENV
+          value: production
+        - name: REACT_APP_API_URL
+          value: https://api.wesplit.fr
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wesplit-back
+  labels:
+    app: wesplit
+    role: back
+  namespace: wesplit
+spec:
+  selector:
+    matchLabels:
+      app: wesplit
+      role: back
+  template:
+    metadata:
+      labels:
+          app: wesplit
+          role: back
+    spec:
+      containers:
+      - name: wesplit-back
+        image: razano/wesplit-back:latest
+        env:
+        - name: NODE_ENV
+          value: production
+        - name: DATABASE_URL
+          value: postgres://postgres:Rf4YZyCHks@wesplit-postgresql.wesplit.svc.cluster.local:5432/we-split
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3001

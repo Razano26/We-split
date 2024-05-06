@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wesplit-front
+  namespace: wesplit
+spec:
+  selector:
+    app: wesplit
+    role: front
+  ports:
+  - port: 80
+    targetPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wesplit-back
+  namespace: wesplit
+spec:
+  selector:
+    app: wesplit
+    role: back
+  ports:
+  - port: 80
+    targetPort: 3001
+
